@@ -26,4 +26,10 @@ public class Marker {
 
     @XmlAttribute(name ="gasolina_98")
     private String gasoline98Price;
+
+    @XmlAttribute(name ="lat")
+    private String latitude;
+
+    @XmlAttribute(name ="lng")
+    private String longitude;
 }
