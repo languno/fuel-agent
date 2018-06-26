@@ -20,7 +20,7 @@ public class GasStationService {
     public void collectAndPersistData() {
 
         List<GasStation> priceList = gasStationsDiariosurService.getGasStationsPriceList();
-        log.info("Collected list from diario sur: {}", priceList);
+        log.info("Collected list from diario sur with {} entires", priceList != null ? priceList.size() : 0);
 
         saveGasStationPriceList(priceList);
     }

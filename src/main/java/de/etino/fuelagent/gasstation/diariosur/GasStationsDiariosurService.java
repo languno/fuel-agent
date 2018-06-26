@@ -8,14 +8,17 @@ import feign.jaxb.JAXBContextFactory;
 import feign.jaxb.JAXBDecoder;
 import feign.okhttp.OkHttpClient;
 import feign.slf4j.Slf4jLogger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class GasStationsDiariosurService {
 
     private static final String GASOLINERAS_DIARIOSUR_URL = "http://gasolineras.diariosur.es";
@@ -34,20 +37,25 @@ public class GasStationsDiariosurService {
                 .logLevel(Logger.Level.FULL)
                 .target(GasStationsDiariosurClient.class, GASOLINERAS_DIARIOSUR_URL);
 
-        Markers diarioMarkers = client.getGasStationsPriceList(PROVINCE_MALAGA);
+        try {
+            Markers diarioMarkers = client.getGasStationsPriceList(PROVINCE_MALAGA);
 
-        List<GasStation> gasStationList = diarioMarkers.marker.stream()
-                .map(mapper::map)
-                .collect(Collectors.toList());
+            List<GasStation> gasStationList = diarioMarkers.marker.stream()
+                    .map(mapper::map)
+                    .collect(Collectors.toList());
 
-        LocalDateTime now = LocalDateTime.now();
+            LocalDateTime now = LocalDateTime.now();
 
-        gasStationList.forEach(station -> {
-            station.setDateTime(now);
-            station.setCountryCode(SPAIN);
-            station.setProvince("Malaga");
-        });
+            gasStationList.forEach(station -> {
+                station.setDateTime(now);
+                station.setCountryCode(SPAIN);
+                station.setProvince("Malaga");
+            });
 
-        return gasStationList;
+            return gasStationList;
+        } catch (RuntimeException re) {
+            log.error("Error getting price list from diariosur", re);
+            return new ArrayList<>();
+        }
     }
 }
