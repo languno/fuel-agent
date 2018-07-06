@@ -96,7 +96,7 @@ public class GasStationsDiariosurService {
 
         updateGasStations(gasStations);
 
-        saveGasStationPriceList(gasStations, priceList);
+        saveGasStationPriceList(priceList);
     }
 
     void updateGasStations(List<GasStation> gasStations) {
@@ -117,7 +117,11 @@ public class GasStationsDiariosurService {
 
     }
 
-    void saveGasStationPriceList(List<GasStation> gasStations, List<GasStationDiarioSur> priceList) {
+    void saveGasStationPriceList(List<GasStationDiarioSur> priceList) {
+
+        List<GasStation> gasStations = gasStationRepository
+                .findByCountryCodeAndProvince(SPAIN, PROVINCE_MALAGA)
+                .orElse(new ArrayList<>());
 
         List<GasStationPrice> prices = new ArrayList<>();
         for (GasStationDiarioSur priceEntry: priceList) {

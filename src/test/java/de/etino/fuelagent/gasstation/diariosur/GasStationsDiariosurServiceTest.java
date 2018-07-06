@@ -105,7 +105,10 @@ public class GasStationsDiariosurServiceTest {
         List<GasStationDiarioSur> fetchedPriceList = Arrays.asList(fetchedStation1, fetchedStation2);
         List<GasStationPrice> expectedPriceList = Arrays.asList(expectedPrice1, expectedPrice2);
 
-        service.saveGasStationPriceList(givenGasStations, fetchedPriceList);
+        when(gasStationRepository.findByCountryCodeAndProvince(any(), any()))
+                .thenReturn(Optional.of(givenGasStations));
+
+        service.saveGasStationPriceList(fetchedPriceList);
 
         verify(gasStationPriceRepository).saveAll(expectedPriceList);
     }
