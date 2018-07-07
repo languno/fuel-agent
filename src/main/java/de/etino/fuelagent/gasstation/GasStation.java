@@ -10,7 +10,7 @@ import javax.persistence.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "gas_station2")
+@Entity(name = "gas_station")
 public class GasStation {
 
     @Id
