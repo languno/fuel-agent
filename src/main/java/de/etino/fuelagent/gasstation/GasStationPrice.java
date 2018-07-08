@@ -1,5 +1,6 @@
 package de.etino.fuelagent.gasstation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class GasStationPrice {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "gas_station_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private GasStation gasStation;
 
     private LocalDateTime dateTime;
