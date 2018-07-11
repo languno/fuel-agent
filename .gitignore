@@ -27,6 +27,6 @@
 fuel-agent.log*
 .DS_Store
 
-/fuel-site/target
-/fuel-service/target
-/fuel-site/src/main/fuel-site/node_modules
+fuel-site/target/
+fuel-service/target/
+fuel-site/src/main/fuel-site/node/node_modules
