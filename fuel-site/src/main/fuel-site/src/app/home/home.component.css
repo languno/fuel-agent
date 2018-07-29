@@ -1,7 +1,10 @@
 .table-fixed-container {
-  max-height: calc(50vh);
+  max-height: calc(50vh - 50px);
   overflow-x: hidden;
   overflow-y: auto;
 }
 
+.table-sm td, tbody th {
+  font-size: 0.8rem;
+}
 
