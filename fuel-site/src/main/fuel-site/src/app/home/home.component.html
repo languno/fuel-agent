@@ -1,5 +1,13 @@
-<ul>
-  <li *ngFor="let price of gasStationPriceList">
-    {{ price.dateTime }} - {{price.dieselPrice}}
-  </li>
-</ul>
+<div *ngIf="lineChartData?.length" style="display: block;">
+  <canvas baseChart width="400" height="200"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
+
+
