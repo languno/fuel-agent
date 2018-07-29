@@ -12,6 +12,7 @@ import { GasStation } from "../services/gasStation/gasStation";
 export class HomeComponent implements OnInit {
 
   gasStations: GasStation[];
+  selectedGasStation: GasStation;
 
   lineChartData:Array<any> = new Array<any>();
   lineChartLabels: Array<String> = new Array<String>();
@@ -81,6 +82,11 @@ export class HomeComponent implements OnInit {
       this.lineChartLabels[i] = gasStationPriceList[i].dateTime;
     }
     this.lineChartData = _lineChartData;
+  }
+
+  selectGasStation(gasStation: GasStation) {
+    this.selectedGasStation = gasStation;
+    this.getPrice(gasStation.id);
   }
 
   // events

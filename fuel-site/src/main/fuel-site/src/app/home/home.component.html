@@ -1,17 +1,40 @@
-<select (change)="getPrice($event.target.value)">
-  <option *ngFor="let gasStation of gasStations" [value]="gasStation.id">{{gasStation.brand}} - {{gasStation.address}}</option>
-</select>
+<div class="container-fluid">
+  <div class="row" style="height: 100vh">
+    <div class="table-fixed-container">
+      <div class="table-responsive">
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Brand</th>
+              <th scope="col">Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let gasStation of gasStations;let i = index;"
+                (click)="selectGasStation(gasStation)"
+                [class.table-active]="gasStation == selectedGasStation">
+              <th scope="row">{{i+1}}</th>
+              <td>{{gasStation.brand}}</td>
+              <td>{{gasStation.address}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-<div *ngIf="lineChartData?.length" style="display: block;">
-  <canvas baseChart width="400" height="200"
-          [datasets]="lineChartData"
-          [labels]="lineChartLabels"
-          [options]="lineChartOptions"
-          [colors]="lineChartColors"
-          [legend]="lineChartLegend"
-          [chartType]="lineChartType"
-          (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
+    <div *ngIf="lineChartData?.length" style="width: 100vw;">
+      <canvas baseChart height = "100px"
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
 </div>
 
 

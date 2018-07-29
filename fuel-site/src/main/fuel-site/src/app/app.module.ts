@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { ChartsModule } from "ng2-charts";
 import { GasStationService } from "./services/gasStation/gasStation.service";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { GasStationService } from "./services/gasStation/gasStation.service";
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    ChartsModule
+    ChartsModule,
+    NgbModule.forRoot()
   ],
   providers: [
     GasStationPriceService,

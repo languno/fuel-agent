@@ -1,0 +1,7 @@
+.table-fixed-container {
+  max-height: calc(50vh);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
