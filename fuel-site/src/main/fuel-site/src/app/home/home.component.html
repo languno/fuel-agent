@@ -1,3 +1,7 @@
+<select (change)="getPrice($event.target.value)">
+  <option *ngFor="let gasStation of gasStations" [value]="gasStation.id">{{gasStation.brand}} - {{gasStation.address}}</option>
+</select>
+
 <div *ngIf="lineChartData?.length" style="display: block;">
   <canvas baseChart width="400" height="200"
           [datasets]="lineChartData"

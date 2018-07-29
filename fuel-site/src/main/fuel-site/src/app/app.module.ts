@@ -6,6 +6,7 @@ import { GasStationPriceService } from "./services/gasStationPrice/gasStationPri
 import { HomeComponent } from './home/home.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { ChartsModule } from "ng2-charts";
+import { GasStationService } from "./services/gasStation/gasStation.service";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ChartsModule } from "ng2-charts";
     ChartsModule
   ],
   providers: [
-    GasStationPriceService
+    GasStationPriceService,
+    GasStationService
   ],
   bootstrap: [AppComponent]
 })

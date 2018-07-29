@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GasStationPriceService } from "../services/gasStationPrice/gasStationPrice.service";
 import { GasStationPrice } from "../services/gasStationPrice/gasStationPrice";
+import { GasStationService } from "../services/gasStation/gasStation.service";
+import { GasStation } from "../services/gasStation/gasStation";
 
 @Component({
   selector: 'app-home',
@@ -9,13 +11,14 @@ import { GasStationPrice } from "../services/gasStationPrice/gasStationPrice";
 })
 export class HomeComponent implements OnInit {
 
+  gasStations: GasStation[];
 
-  public lineChartData:Array<any> = new Array<any>();
-  public lineChartLabels: Array<String> = new Array<String>();
-  public lineChartOptions:any = {
+  lineChartData:Array<any> = new Array<any>();
+  lineChartLabels: Array<String> = new Array<String>();
+  lineChartOptions:any = {
     responsive: true
   };
-  public lineChartColors:Array<any> = [
+  lineChartColors:Array<any> = [
     { // dark grey
       backgroundColor: 'rgba(77,83,96,0.2)',
       borderColor: 'rgba(77,83,96,1)',
@@ -42,13 +45,20 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'line';
+  lineChartLegend: boolean = true;
+  lineChartType: string = 'line';
 
-  constructor(private gasStationPriceService: GasStationPriceService) { }
+  constructor(private gasStationPriceService: GasStationPriceService,
+              private gasStationService: GasStationService) { }
 
   ngOnInit() {
-    this.getPrice(13025);
+    this.getGasStations();
+  }
+
+  getGasStations(): void {
+    this.gasStationService.getGasStations("ES", "Malaga").subscribe(
+      gasStationList => this.gasStations = gasStationList
+    );
   }
 
   getPrice(gasStationId: number): void {
@@ -81,5 +91,4 @@ export class HomeComponent implements OnInit {
   public chartHovered(e:any):void {
     console.log(e);
   }
-
 }
