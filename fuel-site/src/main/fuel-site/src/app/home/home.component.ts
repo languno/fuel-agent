@@ -17,7 +17,20 @@ export class HomeComponent implements OnInit {
   lineChartData:Array<any> = new Array<any>();
   lineChartLabels: Array<String> = new Array<String>();
   lineChartOptions:any = {
-    responsive: true
+    responsive: true,
+    scales: {
+      yAxes: [{
+        type: 'linear',
+        ticks: {
+          callback: function (value, index, values) {
+            if (value.length) {
+              return Number(value).toFixed(3);
+            }
+            return value;
+          }
+        },
+      }]
+    }
   };
   lineChartColors:Array<any> = [
     { // dark grey
