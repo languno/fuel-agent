@@ -8,8 +8,8 @@ export class GasStationPriceService  {
   constructor(private http: HttpClient) {
   }
 
-  getPrice(gasStationId: number): Observable<GasStationPrice[]> {
-    let url = "/api/gasStationPrice/" + gasStationId;
+  getPrice(gasStationId: number, forDays: number): Observable<GasStationPrice[]> {
+    let url = `/api/gasStationPrice/${gasStationId}/forDays/${forDays}`;
 
     return this.http.get<GasStationPrice[]>(url);
   }

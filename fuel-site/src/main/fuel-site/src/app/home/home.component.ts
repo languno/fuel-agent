@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
   }
 
   getPrice(gasStationId: number): void {
-    this.gasStationPriceService.getPrice(gasStationId).subscribe(
+    this.gasStationPriceService.getPrice(gasStationId, 14).subscribe(
       priceList => this.updateChart(priceList));
   }
 
