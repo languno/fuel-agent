@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GasStationPriceService } from "../services/gasStationPrice/gasStationPrice.service";
 import { GasStationPrice } from "../services/gasStationPrice/gasStationPrice";
 import { GasStationService } from "../services/gasStation/gasStation.service";
-import { GasStation } from "../services/gasStation/gasStation";
+import { GasStationWithPrice } from "../services/gasStation/gasStationWithPrice";
 
 @Component({
   selector: 'app-home',
@@ -11,8 +11,8 @@ import { GasStation } from "../services/gasStation/gasStation";
 })
 export class HomeComponent implements OnInit {
 
-  gasStations: GasStation[];
-  selectedGasStation: GasStation;
+  gasStationsWithPrice: GasStationWithPrice[];
+  selectedGasStation: GasStationWithPrice;
 
   lineChartData:Array<any> = new Array<any>();
   lineChartLabels: Array<String> = new Array<String>();
@@ -70,8 +70,8 @@ export class HomeComponent implements OnInit {
   }
 
   getGasStations(): void {
-    this.gasStationService.getGasStations("ES", "Malaga").subscribe(
-      gasStationList => this.gasStations = gasStationList
+    this.gasStationService.getGasStationsWithPrice("ES", "Malaga").subscribe(
+      gasStationList => this.gasStationsWithPrice = gasStationList
     );
   }
 
@@ -97,9 +97,9 @@ export class HomeComponent implements OnInit {
     this.lineChartData = _lineChartData;
   }
 
-  selectGasStation(gasStation: GasStation) {
-    this.selectedGasStation = gasStation;
-    this.getPrice(gasStation.id);
+  selectGasStation(gasStationWithPrice: GasStationWithPrice) {
+    this.selectedGasStation = gasStationWithPrice;
+    this.getPrice(gasStationWithPrice.gasStation.id);
   }
 
   // events

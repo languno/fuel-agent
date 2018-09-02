@@ -1,6 +1,6 @@
 package de.etino.fuelagent;
 
-import de.etino.fuelagent.gasstation.GasStationService;
+import de.etino.fuelagent.gasstation.GasStationOrchestrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,7 +23,7 @@ public class FuelAgentApplication implements CommandLineRunner {
 	private static long DATA_COLLECTION_INTERVALL_MIN = 60;
 
 	@Autowired
-	GasStationService service;
+	GasStationOrchestrationService service;
 
 	public static void main(String[] args) {
 		SpringApplication.run(FuelAgentApplication.class, args);

@@ -12,12 +12,12 @@ import java.util.List;
 public class GasStationController {
 
     @Autowired
-    GasStationRepository repo;
+    GasStationService gasStationService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<GasStation> getPriceListForGasStation(@RequestParam String countryCode, @RequestParam String province) {
+    public List<GasStationWithPrice> getPriceListForGasStation(@RequestParam String countryCode, @RequestParam String province) {
+
         log.info("Get gas stations for country {}, province {}", countryCode, province);
-        return repo.findByCountryCodeAndProvince(countryCode, province)
-                .orElseThrow(() -> new IllegalArgumentException("Country or province not found"));
+        return gasStationService.getPriceListForGasStation(countryCode, province);
     }
 }

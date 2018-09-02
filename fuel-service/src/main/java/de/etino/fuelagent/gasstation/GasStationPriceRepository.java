@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface GasStationPriceRepository extends JpaRepository<GasStationPrice, Long> {
     List<GasStationPrice> findByGasStationId(long gasStationId);
+    GasStationPrice findFirstByGasStationIdOrderByDateTimeDesc(long gasStationId);
     List<GasStationPrice> findByGasStationIdAndDateTimeAfter(long gasStationId, LocalDateTime dateTime);
 }

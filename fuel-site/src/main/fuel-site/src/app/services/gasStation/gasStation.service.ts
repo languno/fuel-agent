@@ -1,14 +1,14 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs/index";
 import { Injectable } from "@angular/core";
-import { GasStation } from "./gasStation";
+import { GasStationWithPrice } from "./gasStationWithPrice";
 
 @Injectable()
 export class GasStationService  {
   constructor(private http: HttpClient) {
   }
 
-  getGasStations(countryCode: string, province: string): Observable<GasStation[]> {
+  getGasStationsWithPrice(countryCode: string, province: string): Observable<GasStationWithPrice[]> {
     let url = "/api/gasStation";
 
     const options = {
@@ -17,6 +17,6 @@ export class GasStationService  {
         .append("province", province)
     };
 
-    return this.http.get<GasStation[]>(url, options);
+    return this.http.get<GasStationWithPrice[]>(url, options);
   }
 }

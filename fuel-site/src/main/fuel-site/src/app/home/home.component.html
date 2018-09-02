@@ -28,15 +28,19 @@
               <th scope="col">#</th>
               <th scope="col">Brand</th>
               <th scope="col">Address</th>
+              <th scope="col">Diesel</th>
+              <th scope="col">Gasoline 95</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let gasStation of gasStations;let i = index;"
+            <tr *ngFor="let gasStation of gasStationsWithPrice;let i = index;"
                 (click)="selectGasStation(gasStation)"
                 [class.table-active]="gasStation == selectedGasStation">
               <th scope="row">{{i+1}}</th>
-              <td>{{gasStation.brand}}</td>
-              <td>{{gasStation.address}}</td>
+              <td>{{gasStation.gasStation.brand}}</td>
+              <td>{{gasStation.gasStation.address}}</td>
+              <td>{{gasStation.currentPrice?.dieselPrice}}</td>
+              <td>{{gasStation.currentPrice?.gasoline95Price}}</td>
             </tr>
           </tbody>
         </table>
