@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @SpringBootApplication
 public class FuelAgentApplication implements CommandLineRunner {
 
-	private static long DATA_COLLECTION_INTERVALL_MIN = 30;
+	private static long DATA_COLLECTION_INTERVALL_MIN = 60;
 
 	@Autowired
 	GasStationService service;
