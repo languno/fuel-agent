@@ -1,6 +1,8 @@
 # fuel-agent
 Fetches fuel prices from gas stations in Europe and stores them in a MySQL database. The Angular front-end provides visualization and statistics of the fuel prices.
 
+[![Build Status](https://travis-ci.org/languno/fuel-agent.svg?branch=master)](https://travis-ci.org/languno/fuel-agent)
+
 ## Setup for development
 * Install and run MySQL on your localhost using default port, root user and no password
 * Enable the spring profile "development" when starting the service
@@ -14,5 +16,5 @@ mvn clean package
 * Update the connection settings for your production environment i.e. with an application.properties file in the classpath
 * Start the service without specifying a spring profile:
 ```
-java -jar fuel-agent-0.0.1-SNAPSHOT.jar
+java -jar fuel-service-0.0.1.jar
 ```
