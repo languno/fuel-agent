@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.Clock;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -52,5 +53,11 @@ public class FuelAgentApplication implements CommandLineRunner {
 						? new ModelAndView("index.html", Collections.<String, Object> emptyMap(), HttpStatus.OK) : null;
 			}
 		};
+	}
+
+	// Inject the clock into classes with time dependency for testing purpose
+	@Bean
+	public Clock clock() {
+		return Clock.systemUTC();
 	}
 }

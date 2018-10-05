@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,9 @@ public class GasStationsDiariosurService {
 
     @Autowired
     GasStationPriceRepository gasStationPriceRepository;
+
+    @Autowired
+    Clock clock;
 
     public void collectAndPersistData() {
 
@@ -63,7 +67,7 @@ public class GasStationsDiariosurService {
                     .map(mapper::map)
                     .collect(Collectors.toList());
 
-            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime now = LocalDateTime.now(clock);
 
             gasStationList.forEach(station -> {
                 station.setDateTime(now);
