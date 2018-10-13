@@ -1,4 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { GasStationWithPrice } from "../../services/gasStation/gasStationWithPrice";
 
 declare var ol: any;
 
@@ -16,16 +17,34 @@ export class FuelMapComponent implements OnInit, OnChanges {
   longitude: number;
 
   map: any;
+  markerSource: any;
 
   constructor() { }
 
   ngOnInit() {
+
+    this.markerSource = new ol.source.Vector();
+
+    var markerStyle = new ol.style.Style({
+      image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+        anchor: [0.5, 46],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'pixels',
+        opacity: 0.75,
+        src: 'https://openlayers.org/en/v4.6.4/examples/data/icon.png'
+      }))
+    });
+
     this.map = new ol.Map({
       target: 'map',
       layers: [
         new ol.layer.Tile({
           source: new ol.source.OSM()
-        })
+        }),
+        new ol.layer.Vector({
+          source: this.markerSource,
+          style: markerStyle,
+        }),
       ],
       view: new ol.View({
         center:
@@ -50,6 +69,26 @@ export class FuelMapComponent implements OnInit, OnChanges {
 
     var view = this.map.getView();
     view.setCenter(ol.proj.fromLonLat([lon, lat]));
-    view.setZoom(12);
+    view.setZoom(13);
+  }
+
+  setMarker(gasStationsWithPrice: GasStationWithPrice[]): void {
+
+    this.markerSource.clear();
+
+    gasStationsWithPrice.forEach((gasStationWithPrice: GasStationWithPrice) => {
+      var lat = parseFloat(gasStationWithPrice.gasStation.latitude);
+      var lon = parseFloat(gasStationWithPrice.gasStation.longitude);
+
+      var iconFeature = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.transform([lon, lat], 'EPSG:4326',
+          'EPSG:3857')),
+        name: 'Null Island',
+        population: 4000,
+        rainfall: 500
+      });
+
+      this.markerSource.addFeature(iconFeature);
+    });
   }
 }

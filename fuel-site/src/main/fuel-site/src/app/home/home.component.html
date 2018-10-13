@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <fuel-map [longitude]="selectedGasStation?.gasStation.longitude"
+    <fuel-map #fuelMap [longitude]="selectedGasStation?.gasStation.longitude"
               [latitude]="selectedGasStation?.gasStation.latitude"></fuel-map>
 
     <div *ngIf="lineChartData?.length" style="width: 100vw;">

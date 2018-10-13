@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GasStationPriceService } from "../services/gasStationPrice/gasStationPrice.service";
 import { GasStationPrice } from "../services/gasStationPrice/gasStationPrice";
 import { GasStationService } from "../services/gasStation/gasStation.service";
 import { GasStationWithPrice } from "../services/gasStation/gasStationWithPrice";
+import { FuelMapComponent } from "../fuelmap/fuel-map/fuel-map.component";
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,8 @@ import { GasStationWithPrice } from "../services/gasStation/gasStationWithPrice"
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChild(FuelMapComponent) fuelMap: FuelMapComponent;
 
   gasStationsWithPrice: GasStationWithPrice[];
   selectedGasStation: GasStationWithPrice;
@@ -71,8 +74,10 @@ export class HomeComponent implements OnInit {
 
   getGasStations(): void {
     this.gasStationService.getGasStationsWithPrice("ES", "Malaga").subscribe(
-      gasStationList => this.gasStationsWithPrice = gasStationList
-    );
+      gasStationList => {
+        this.gasStationsWithPrice = gasStationList;
+        this.fuelMap.setMarker(gasStationList);
+      });
   }
 
   getPrice(gasStationId: number): void {
