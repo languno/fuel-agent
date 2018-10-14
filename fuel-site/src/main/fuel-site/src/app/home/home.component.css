@@ -9,3 +9,14 @@
   font-size: 0.8rem;
 }
 
+.map {
+  height: 400px;
+  width: 100%;
+}
+
+.map-fixed-container {
+  width: 100%;
+  max-height: calc(50vh - 20px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}

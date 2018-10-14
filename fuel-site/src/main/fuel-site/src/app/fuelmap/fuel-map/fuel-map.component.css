@@ -1,0 +1,11 @@
+img {
+  max-width: 100%;
+}
+
+img.olTileImage {
+  max-width: none;
+}
+
+#map {
+  height: 100%;
+}

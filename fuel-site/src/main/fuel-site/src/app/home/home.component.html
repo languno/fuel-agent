@@ -46,10 +46,16 @@
         </table>
       </div>
     </div>
+  </div>
 
-    <fuel-map #fuelMap [longitude]="selectedGasStation?.gasStation.longitude"
+  <div class="row justify-content-center m-2">
+    <div class="map-fixed-container">
+      <fuel-map #fuelMap [longitude]="selectedGasStation?.gasStation.longitude"
               [latitude]="selectedGasStation?.gasStation.latitude"></fuel-map>
+    </div>
+  </div>
 
+  <div class="row justify-content-center">
     <div *ngIf="lineChartData?.length" style="width: 100vw;">
       <canvas baseChart height = "100px"
               [datasets]="lineChartData"
