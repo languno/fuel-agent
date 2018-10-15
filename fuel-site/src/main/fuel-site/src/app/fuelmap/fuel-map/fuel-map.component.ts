@@ -67,6 +67,8 @@ export class FuelMapComponent implements OnInit, OnChanges {
         zoom: 8
       })
     });
+
+    this.addHoverHandler();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -98,12 +100,16 @@ export class FuelMapComponent implements OnInit, OnChanges {
       var lat = parseFloat(gasStationWithPrice.gasStation.latitude);
       var lon = parseFloat(gasStationWithPrice.gasStation.longitude);
 
+      let dieselPrice: string = gasStationWithPrice.currentPrice != null ? gasStationWithPrice.currentPrice.dieselPrice : "";
+      let gasoline95Price: string = gasStationWithPrice.currentPrice != null ? gasStationWithPrice.currentPrice.gasoline95Price : "";
+      let brand: string = gasStationWithPrice.gasStation.brand;
+
       var iconFeature = new ol.Feature({
         geometry: new ol.geom.Point(ol.proj.transform([lon, lat], 'EPSG:4326',
           'EPSG:3857')),
-        name: 'Null Island',
-        population: 4000,
-        rainfall: 500
+        brand: brand,
+        dieselPrice: dieselPrice,
+        gasoline95Price: gasoline95Price
       });
 
       this.markerSource.addFeature(iconFeature);
@@ -118,6 +124,28 @@ export class FuelMapComponent implements OnInit, OnChanges {
   private clearAllSelectedMarker(): void {
     this.markerSource.forEachFeature((iconFrature: any) => {
       iconFrature.setStyle(this.markerStyle);
+    });
+  }
+
+  private addHoverHandler(): void {
+
+    var selectPointerMove = new ol.interaction.Select({
+      condition: ol.events.condition.pointerMove
+    });
+
+    this.map.addInteraction(selectPointerMove);
+
+    selectPointerMove.on('select', function(e) {
+
+      if (e.selected.length > 0) {
+        var iconFeature = e.selected[0];
+        console.log('selected ' + iconFeature.get('brand') + ': diesel price ' + iconFeature.get('dieselPrice') + ', gasoline: ' + iconFeature.get('gasoline95Price'));
+      }
+
+      if (e.deselected.length > 0) {
+        var iconFeature = e.deselected[0];
+        console.log('deselected ' + iconFeature.get('brand') + ': diesel price ' + iconFeature.get('dieselPrice') + ', gasoline: ' + iconFeature.get('gasoline95Price'));
+      }
     });
   }
 }
