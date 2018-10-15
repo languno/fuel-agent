@@ -18,6 +18,8 @@ export class FuelMapComponent implements OnInit, OnChanges {
 
   map: any;
   markerSource: any;
+  markerStyle: any;
+  selectedMarkerStyle: any;
 
   constructor() { }
 
@@ -25,13 +27,26 @@ export class FuelMapComponent implements OnInit, OnChanges {
 
     this.markerSource = new ol.source.Vector();
 
-    var markerStyle = new ol.style.Style({
+    this.markerStyle = new ol.style.Style({
       image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
         anchor: [0.5, 46],
         anchorXUnits: 'fraction',
         anchorYUnits: 'pixels',
         opacity: 0.75,
-        src: 'https://openlayers.org/en/v4.6.4/examples/data/icon.png'
+        src: 'https://openlayers.org/en/v4.6.4/examples/data/icon.png',
+        crossOrigin: 'anonymous'
+      }))
+    });
+
+    this.selectedMarkerStyle = new ol.style.Style({
+      image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+        anchor: [0.5, 46],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'pixels',
+        opacity: 0.75,
+        src: 'https://openlayers.org/en/v4.6.4/examples/data/icon.png',
+        crossOrigin: 'anonymous',
+        color: '#FF0000'
       }))
     });
 
@@ -43,7 +58,7 @@ export class FuelMapComponent implements OnInit, OnChanges {
         }),
         new ol.layer.Vector({
           source: this.markerSource,
-          style: markerStyle,
+          style: this.markerStyle,
         }),
       ],
       view: new ol.View({
@@ -70,6 +85,9 @@ export class FuelMapComponent implements OnInit, OnChanges {
     var view = this.map.getView();
     view.setCenter(ol.proj.fromLonLat([lon, lat]));
     view.setZoom(13);
+
+    this.clearAllSelectedMarker();
+    this.selectMarker(lat, lon);
   }
 
   setMarker(gasStationsWithPrice: GasStationWithPrice[]): void {
@@ -89,6 +107,17 @@ export class FuelMapComponent implements OnInit, OnChanges {
       });
 
       this.markerSource.addFeature(iconFeature);
+    });
+  }
+
+  private selectMarker(lat, lon) {
+    var iconFeature = this.markerSource.getClosestFeatureToCoordinate(ol.proj.fromLonLat([lon, lat]));
+    iconFeature.setStyle(this.selectedMarkerStyle);
+  }
+
+  private clearAllSelectedMarker(): void {
+    this.markerSource.forEachFeature((iconFrature: any) => {
+      iconFrature.setStyle(this.markerStyle);
     });
   }
 }
